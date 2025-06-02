@@ -1,13 +1,67 @@
 'use client'
 
-import React from 'react'
-import Sketch from 'react-p5'
+import dynamic from 'next/dynamic'
+import React, { useEffect, useState, useRef } from 'react'
+
+const Sketch = dynamic(() => import('react-p5'), { ssr: false})
+// import Sketch from 'react-p5'
 
 const InteractiveBg = () => {
     const dotSize = 5;
     const spacing = dotSize * 2;
     const minTValue = 40;
     let dots = [];
+
+    const [isMouseMoved, setIsMouseMoved] = useState(true);
+
+    useEffect(() => {
+        const handleMouseMove = () => {
+            setIsMouseMoved(true)
+        }
+
+        window.addEventListener('mousemove', handleMouseMove)
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove)
+        }
+    })
+
+    // useEffect(() => {
+    //     const handleMouseMove = () => {
+    //         setIsMouseMoved(true)
+    //         console.log('working')
+    //         setTimeout(() => {
+    //             setIsMouseMoved(false);
+    //         }, 100)
+    //     }
+
+    //     window.addEventListener('mousemove', handleMouseMove)
+
+    //     return () => {
+    //         window.removeEventListener('mousemove', handleMouseMove)
+    //     }
+    // }, [])
+
+    // useEffect(() => {
+    //     const handleMouseMove = () => {
+    //         setIsMouseMoved(true);
+      
+    //         // Clear previous timeout
+    //         if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      
+    //         // Set new timeout to reset after 100ms
+    //         timeoutRef.current = setTimeout(() => {
+    //           setIsMouseMoved(false);
+    //         }, 100);
+    //       };
+      
+    //       window.addEventListener('mousemove', handleMouseMove);
+      
+    //       return () => {
+    //         window.removeEventListener('mousemove', handleMouseMove);
+    //         if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    //       };
+    // },[])
     
     const setup = (p5, canvasParentRef) => {
         p5.createCanvas(500, 500).parent(canvasParentRef)
@@ -27,6 +81,16 @@ const InteractiveBg = () => {
         })
     }
 
+    // let isMouseMoved = false;
+
+    // function mouseMoved() {
+    //     isMouseMoved = true;
+    //     setTimeout(() => {
+    //         isMouseMoved = false;
+    //     }, 100)
+    //     console.log(isMouseMoved);
+    // }
+
     class Dot {
         constructor(x, y, size) {
             this.x = x;
@@ -37,7 +101,7 @@ const InteractiveBg = () => {
 
         update(p5) {
             let distance = p5.dist(p5.mouseX, p5.mouseY, this.x, this.y)
-            if (distance < 50) {
+            if (isMouseMoved && (distance < 50)) {
                 this.transparency = 255
             } else {
                 this.transparency = p5.max(minTValue, this.transparency - 10)
