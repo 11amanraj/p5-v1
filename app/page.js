@@ -7,6 +7,9 @@ export default function Home() {
     <div>
       {/* <Drawing /> */}
       <InteractiveBg />
+      <div className="bg-green-300 w-full h-screen">
+        2nd Div
+      </div>
     </div>
   );
 }

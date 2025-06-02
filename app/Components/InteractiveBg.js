@@ -110,7 +110,8 @@ const InteractiveBg = () => {
     }
 
   return (
-    <div className='w-150 h-150 bg-red-700'>
+    <div className='w-full h-screen bg-red-700'>
+        {/* <div className='w-150 h-150 bg-red-700'> */}
         <Sketch setup={setup} draw={draw}/>
     </div>
   )
