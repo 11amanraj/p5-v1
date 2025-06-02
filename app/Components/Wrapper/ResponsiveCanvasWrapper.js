@@ -38,13 +38,13 @@ const ResponsiveCanvasWrapper = ({
     }
 
   return (
-    <div ref={containerRef} className='w-full h-screen realtive'>
-        <div className='absolute inset-0 z-0'>
-            {dimensions.width > 0 && (
-            <Sketch setup={setup} draw={draw} windowResized={windowResized} />
-            )}
-        </div>
+    <div ref={containerRef} className='absolute inset-0 z-0'>
+        {dimensions.width > 0 && (
+        <Sketch setup={setup} draw={draw} windowResized={windowResized} />
+        )}
     </div>
+    // <div ref={containerRef} className='w-full h-screen relative'>
+    // </div>
   )
 }
 
