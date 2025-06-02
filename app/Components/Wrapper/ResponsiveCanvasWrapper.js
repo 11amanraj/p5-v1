@@ -5,7 +5,10 @@ import dynamic from 'next/dynamic'
 
 const Sketch = dynamic(() => import('react-p5'), { ssr: false})
 
-const SecondBg = () => {
+const ResponsiveCanvasWrapper = ({
+    customDraw,
+    customSetup
+}) => {
     const containerRef = useRef(null);
     const [dimensions, setDimensions] = useState({width: 0, height: 0});
 
@@ -23,30 +26,26 @@ const SecondBg = () => {
     }, [])
 
     const setup = (p5, canvasParentRef) => {
-        p5.createCanvas(dimensions.width, dimensions.height).parent(canvasParentRef)
-        // p5.createCanvas(500, 500).parent(canvasParentRef)
-    }
+        p5.createCanvas(dimensions.width, dimensions.height).parent(canvasParentRef);
+        if (customSetup) customSetup(p5, dimensions);
+    };
+    
+    const draw = (p5) => {
+        if (customDraw) customDraw(p5, dimensions);
+    };
 
     const windowResized = (p5) => {
         p5.resizeCanvas(dimensions.width, dimensions.height);
     }
 
-    const draw = (p5) => {
-        p5.background(220, 0, 200);
-        p5.ellipse(50, 50, 70, 70);
-        p5.ellipse(150, 50, 70, 70);
-    }
-
 
   return (
-    <div ref={containerRef} className="bg-green-300 w-full h-screen">
-        <Sketch 
-            setup={setup} 
-            draw={draw} 
-            windowResized={windowResized}
-        />
+    <div ref={containerRef} className='w-full h-screen'>
+        {dimensions.width > 0 && (
+        <Sketch setup={setup} draw={draw} windowResized={windowResized} />
+      )}
     </div>
   )
 }
 
-export default SecondBg
+export default ResponsiveCanvasWrapper
