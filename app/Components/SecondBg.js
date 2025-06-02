@@ -14,10 +14,15 @@ const SecondBg = () => {
     }
 
     return (
-        <ResponsiveCanvasWrapper 
-            customSetup={setup}
-            customDraw={draw}
-        />
+        <div className="relative w-full h-screen overflow-hidden">
+            <ResponsiveCanvasWrapper 
+                customSetup={setup}
+                customDraw={draw}
+            />
+            <div className="absolute inset-0 z-10 border-8">
+                This is Working
+            </div>
+        </div>
     )
 }
 
