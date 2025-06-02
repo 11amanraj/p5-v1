@@ -13,26 +13,14 @@ const InteractiveBg = () => {
     let dots = [];
 
     const [isMouseMoved, setIsMouseMoved] = useState(true);
-
-    useEffect(() => {
-        const handleMouseMove = () => {
-            setIsMouseMoved(true)
-        }
-
-        window.addEventListener('mousemove', handleMouseMove)
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove)
-        }
-    })
+    const timeoutRef = useRef(null);
 
     // useEffect(() => {
     //     const handleMouseMove = () => {
     //         setIsMouseMoved(true)
-    //         console.log('working')
     //         setTimeout(() => {
-    //             setIsMouseMoved(false);
-    //         }, 100)
+    //             setIsMouseMoved(false)
+    //         }, 1000000)
     //     }
 
     //     window.addEventListener('mousemove', handleMouseMove)
@@ -40,28 +28,8 @@ const InteractiveBg = () => {
     //     return () => {
     //         window.removeEventListener('mousemove', handleMouseMove)
     //     }
-    // }, [])
+    // })
 
-    // useEffect(() => {
-    //     const handleMouseMove = () => {
-    //         setIsMouseMoved(true);
-      
-    //         // Clear previous timeout
-    //         if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      
-    //         // Set new timeout to reset after 100ms
-    //         timeoutRef.current = setTimeout(() => {
-    //           setIsMouseMoved(false);
-    //         }, 100);
-    //       };
-      
-    //       window.addEventListener('mousemove', handleMouseMove);
-      
-    //       return () => {
-    //         window.removeEventListener('mousemove', handleMouseMove);
-    //         if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    //       };
-    // },[])
     
     const setup = (p5, canvasParentRef) => {
         p5.createCanvas(500, 500).parent(canvasParentRef)
@@ -80,6 +48,33 @@ const InteractiveBg = () => {
             dot.render(p5)
         })
     }
+    
+    // useEffect(() => {
+    //     const handleMouseMove = () => {
+    //         setIsMouseMoved(true);
+      
+    //         // Clear previous timeout
+    //         if (timeoutRef.current) {
+    //             // timeoutRef.current = 0
+    //             clearTimeout(timeoutRef.current);
+    //         }
+                
+      
+    //         // Set new timeout to reset after 100ms
+    //         timeoutRef.current = setTimeout(() => {
+    //           setIsMouseMoved(false);
+    //         }, 100);
+
+    //         console.log(timeoutRef.current)
+    //       };
+      
+    //       window.addEventListener('mousemove', handleMouseMove);
+      
+    //       return () => {
+    //         window.removeEventListener('mousemove', handleMouseMove);
+    //         if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    //       };
+    // },[])
 
     // let isMouseMoved = false;
 
