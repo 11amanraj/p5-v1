@@ -26,18 +26,16 @@ const ResponsiveCanvasWrapper = ({
     }, [])
 
     const setup = (p5, canvasParentRef) => {
-        p5.createCanvas(dimensions.width, dimensions.height).parent(canvasParentRef);
-        if (customSetup) customSetup(p5, dimensions);
+        customSetup(p5, canvasParentRef, dimensions.width, dimensions.height)
     };
     
     const draw = (p5) => {
-        if (customDraw) customDraw(p5, dimensions);
+        customDraw(p5)
     };
 
     const windowResized = (p5) => {
         p5.resizeCanvas(dimensions.width, dimensions.height);
     }
-
 
   return (
     <div ref={containerRef} className='w-full h-screen'>

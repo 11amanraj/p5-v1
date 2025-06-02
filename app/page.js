@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       {/* <Drawing /> */}
-      {/* <InteraactiveBg /> */}
+      {/* <InteractiveBg /> */}
       <SecondBg />
     </div>
   );
